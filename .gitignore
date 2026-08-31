@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.duckdb
+completeness_proof/data/*.csv
+kci/data/*.duckdb
+aibom/data/*.duckdb

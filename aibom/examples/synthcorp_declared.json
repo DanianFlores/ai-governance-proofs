@@ -1,0 +1,65 @@
+[
+  {
+    "system": "assistant-a",
+    "component_type": "model",
+    "version": "v1",
+    "digest": "sha256:model-v1",
+    "effective_from": "2026-06-01T00:00:00Z",
+    "declared_by": "release-bot",
+    "change_reason": "initial declaration"
+  },
+  {
+    "system": "assistant-a",
+    "component_type": "model",
+    "version": "v2",
+    "digest": "sha256:model-v2",
+    "effective_from": "2026-08-15T00:00:00Z",
+    "declared_by": "release-bot",
+    "change_reason": "quarterly model refresh"
+  },
+  {
+    "system": "assistant-a",
+    "component_type": "prompt",
+    "version": "v5",
+    "digest": "sha256:prompt-v5",
+    "effective_from": "2026-07-01T00:00:00Z",
+    "declared_by": "prompt-owner",
+    "change_reason": "initial declaration"
+  },
+  {
+    "system": "assistant-a",
+    "component_type": "policy",
+    "version": "v2",
+    "digest": "sha256:policy-v2",
+    "effective_from": "2026-05-01T00:00:00Z",
+    "declared_by": "policy-owner",
+    "change_reason": "initial declaration"
+  },
+  {
+    "system": "assistant-a",
+    "component_type": "policy",
+    "version": "v3",
+    "digest": "sha256:policy-v3-canonical",
+    "effective_from": "2026-08-20T00:00:00Z",
+    "declared_by": "policy-owner",
+    "change_reason": "added evidence-tier requirement for irreversible actions"
+  },
+  {
+    "system": "assistant-a",
+    "component_type": "firewall",
+    "version": "v1",
+    "digest": "sha256:firewall-v1",
+    "effective_from": "2026-01-01T00:00:00Z",
+    "declared_by": "security-owner",
+    "change_reason": "initial declaration"
+  },
+  {
+    "system": "assistant-b",
+    "component_type": "model",
+    "version": "b-v1",
+    "digest": "sha256:b-model-v1",
+    "effective_from": "2026-04-01T00:00:00Z",
+    "declared_by": "release-bot",
+    "change_reason": "initial declaration"
+  }
+]

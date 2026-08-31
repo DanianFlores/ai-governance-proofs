@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/aibom-declaration.schema.json",
+  "title": "AI Bill of Materials -- component declaration",
+  "description": "One record: a system's intended component version, effective from a point in time. A full AI Bill of Materials is a list of these -- an append-only changelog, not a single 'current state' document. See ../schema/format.md for why each field is here.",
+  "type": "object",
+  "required": ["system", "component_type", "version", "digest", "effective_from", "declared_by"],
+  "additionalProperties": false,
+  "properties": {
+    "system": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The system this declaration applies to. Scoping is per-system: two systems can run different versions of the same component type without that being drift."
+    },
+    "component_type": {
+      "type": "string",
+      "enum": ["model", "prompt", "policy", "firewall"],
+      "description": "Exactly these four. A component type outside this set is a schema change, not a data entry -- it needs a deliberate update to the drift-detection query's category list, not a silent new value."
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The human-readable version label (e.g. 'v2'). Mutable in the sense that two builds could carry the same label by mistake -- see `digest`."
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-z0-9-]+$",
+      "description": "A content identifier for the deployed artifact. In production this is a real digest (sha256:<64 hex chars>) computed from the artifact itself; the synthetic examples in this repo use readable placeholder tokens after the 'sha256:' prefix instead of real hashes, so the worked example stays inspectable by eye. Exists because a version label is a claim, not a proof -- two different builds retagged with the same label look identical by `version` alone and only differ by digest."
+    },
+    "effective_from": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this declaration became the intended state. There is no `effective_to` field -- it's derived as the next declaration's `effective_from` for the same (system, component_type), or 'still in effect' if there is none. Storing an explicit `effective_to` would let it drift out of sync with the next record's `effective_from`; deriving it can't."
+    },
+    "declared_by": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Who or what approved this declaration (a person, or an automated release process's identifier). A declaration nobody is accountable for is a config value, not governance evidence."
+    },
+    "change_reason": {
+      "type": "string",
+      "description": "Optional. Why this declaration superseded the previous one. Not required by the schema because not every declaration in a real system will have this filled in yet -- but its absence is itself something a reviewer should be able to see, not something the schema silently hides."
+    }
+  }
+}
